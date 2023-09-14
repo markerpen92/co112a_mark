@@ -1,0 +1,39 @@
+CHIP Clone{
+    IN a;
+    OUT out[16];
+
+    PARTS:
+        Not(in=a,out=tmp0);
+        Not(in=a,out=tmp1);
+        Not(in=a,out=tmp2);
+        Not(in=a,out=tmp3);
+        Not(in=a,out=tmp4);
+        Not(in=a,out=tmp5);
+        Not(in=a,out=tmp6);
+        Not(in=a,out=tmp7);
+        Not(in=a,out=tmp8);
+        Not(in=a,out=tmp9);
+        Not(in=a,out=tmp10);
+        Not(in=a,out=tmp11);
+        Not(in=a,out=tmp12);
+        Not(in=a,out=tmp13);
+        Not(in=a,out=tmp14);
+        Not(in=a,out=tmp15);
+
+        Not(in=tmp0 , out=out[0]);
+        Not(in=tmp1 , out=out[1]);
+        Not(in=tmp2 , out=out[2]);
+        Not(in=tmp3 , out=out[3]);
+        Not(in=tmp4 , out=out[4]);
+        Not(in=tmp5 , out=out[5]);
+        Not(in=tmp6 , out=out[6]);
+        Not(in=tmp7 , out=out[7]);
+        Not(in=tmp8 , out=out[8]);
+        Not(in=tmp9 , out=out[9]);
+        Not(in=tmp10 , out=out[10]);
+        Not(in=tmp11 , out=out[11]);
+        Not(in=tmp12 , out=out[12]);
+        Not(in=tmp13 , out=out[13]);
+        Not(in=tmp14 , out=out[14]);
+        Not(in=tmp15 , out=out[15]);
+}
