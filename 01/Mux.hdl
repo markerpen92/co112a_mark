@@ -12,7 +12,13 @@
 CHIP Mux {
     IN a, b, sel;
     OUT out;
-
+    // a:x  b:y  sel:z
     PARTS:
-    // Put your code here:
+        Not(in=a , out=nota);
+        Not(in=sel , out=notsel);
+
+        And(in=nota , in=notsel , out=out1);
+        And(in=b , in=sel , out=out2);
+
+        Or(in=out1 , in=out2 , out=out);
 }
