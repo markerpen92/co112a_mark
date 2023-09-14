@@ -14,12 +14,12 @@ CHIP Mux16 {
     OUT out[16];
 
     PARTS:
-        Clone(in=sel,out=seltmp);
+        Clone(a=sel,out=seltmp);
         Not16(in=b , out=notb);
-        Not16(in=sel , out=notsel);
+        Not16(in=seltmp , out=notseltmp);
 
-        And16(a=a , b=notsel , out=out1);
-        And16(a=b , b=sel , out=out2);
+        And16(a=a , b=notseltmp , out=out1);
+        And16(a=b , b=seltmp , out=out2);
 
         Or16(a=out1 , b=out2 , out=out);
 }
