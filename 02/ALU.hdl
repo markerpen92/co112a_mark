@@ -26,6 +26,8 @@
 // if (out == 0) set zr = 1
 // if (out < 0) set ng = 1
 
+//reference : https://github.com/AaronRandall/nand2tetris/blob/master/projects/02/ALU.hdl
+
 CHIP ALU {
     IN  
         x[16], y[16],  // 16-bit inputs        
@@ -42,5 +44,25 @@ CHIP ALU {
         ng; // 1 if (out < 0),  0 otherwise
 
     PARTS:
-   // Put you code here:
+        Clone(a=false , out=false16);
+        Mux16(a=x , b=false16 , sel=zx , out=zeroX);
+        Mux16(a=y , b=false16 , sel=zy , out=zeroY);
+
+        Not16(in=zeroX , out=FnotX);
+        Mux16(a=zeroX , b=FnotX , sel=nx , out=notX);
+
+        Not16(in=zeroY , out=FnotY);
+        Mux16(a=zeroY , b=FnotY , sel=ny , out=notY);
+
+        Add16(a=notX , b=notY , out=FaddXY);
+        And16(a=notX , b=notY , out=FandXY);
+        Mux16(a=FandXY , b=FaddXY , sel=f , out=AndAddXY);
+
+        Not16(in=AndAddXY , out=notFAndAddXY);
+        Mux16(a=AndAddXY , b=notFAndAddXY , sel=no , out=out , out[0..7]=lowOut , out[8..15]=highOut , out[15]=ng);
+
+        Or8Way(in=lowOut , out=zrtmp1);
+        Or8Way(in=highOut , out=zrtmp2);
+        Or(a=zrtmp1 , b=zrtmp2 , out=zrtmp3);
+        Not(in=zrtmp3 , out=zr);
 }
