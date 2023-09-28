@@ -11,10 +11,19 @@
  * else                    out[t+1] = out[t]
  */
 
+ // refernece : https://github.com/jcoglan/nand2tetris/blob/master/projects/03/a/PC.hdl
+
 CHIP PC {
     IN in[16],load,inc,reset;
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+        Inc16(in=feedback , out=tmp);
+        Mux16(a=feedback , b=tmp , sel=inc , out=Inc1OutPlus1);
+
+        Mux16(a=Inc1OutPlus1 , b=in , sel=load , out=Load1OutIsIn);
+
+        Mux16(a=Load1OutIsIn , b=false , sel=reset , out=Reset1OutAll0);
+        
+        Register(in=Reset1OutAll0 , load=true , out=feedback , out=out);
 }

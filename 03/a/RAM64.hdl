@@ -10,10 +10,23 @@
  * (the loaded value will be emitted to out from the next time step onward).
  */
 
+ //refernece : https://github.com/jcoglan/nand2tetris/blob/master/projects/03/a/RAM64.hdl
+
 CHIP RAM64 {
     IN in[16], load, address[6];
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+        DMux8Way(in=load , sel=address[0..2] , a=load1 , b=load2 , c=load3 , d=load4 , e=load5 , f=load6 , g=load7 , h=load8);
+
+        RAM8(in=in , load=load1 , address=address[3..5] , out=tmp1);
+        RAM8(in=in , load=load2 , address=address[3..5] , out=tmp2);
+        RAM8(in=in , load=load3 , address=address[3..5] , out=tmp3);
+        RAM8(in=in , load=load4 , address=address[3..5] , out=tmp4);
+        RAM8(in=in , load=load5 , address=address[3..5] , out=tmp5);
+        RAM8(in=in , load=load6 , address=address[3..5] , out=tmp6);
+        RAM8(in=in , load=load7 , address=address[3..5] , out=tmp7);
+        RAM8(in=in , load=load8 , address=address[3..5] , out=tmp8);
+
+        Mux8Way16(a=tmp1 , b=tmp2 , c=tmp3 , d=tmp4 , e=tmp5 , f=tmp6 , g=tmp7 , h=tmp8 , sel=address[0..2] , out=out);
 }
